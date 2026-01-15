@@ -9,7 +9,7 @@ import base64
 IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
-ANIMATION_LOOPS = 100
+ANIMATION_LOOPS = 70
 ANIMATION_DELAY = 0.001
 
 st.set_page_config(
@@ -143,6 +143,7 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
 
