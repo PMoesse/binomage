@@ -104,7 +104,7 @@ if st.session_state.current_pair:
     cols = st.columns(2)
     for i, img in enumerate(st.session_state.current_pair):
         with cols[i]:
-            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
+            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=290)
             #st.markdown(f"### {NAMES.get(img, img)}")
 
 st.divider()
@@ -143,6 +143,7 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
 
