@@ -10,7 +10,7 @@ IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
 ANIMATION_LOOPS = 30
-ANIMATION_DELAY = 0.2
+ANIMATION_DELAY = 0.01
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
@@ -143,5 +143,6 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
