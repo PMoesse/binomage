@@ -1,22 +1,3 @@
-import sys
-import os
-
-if getattr(sys, 'frozen', False):
-    from streamlit.web import bootstrap
-
-    script_path = os.path.abspath(__file__)
-
-    bootstrap.run(
-        script_path,
-        False,
-        [],
-        {
-            "server.headless": True,
-            "server.port": 3000,
-        },
-    )
-    sys.exit()
-
 import streamlit as st
 import os
 import random
@@ -163,3 +144,4 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
