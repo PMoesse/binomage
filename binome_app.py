@@ -15,7 +15,26 @@ ANIMATION_DELAY = 0.07
 st.set_page_config(
     page_title="Logiciel de Binômage",
     layout="wide"
+    initial_sidebar_state="collapsed"
 )
+st.markdown("""
+<style>
+    /* Supprime le padding du haut */
+    .block-container {
+        padding-top: 0.5rem !important;
+    }
+
+    /* Cache la barre Streamlit */
+    header { 
+        visibility: hidden; 
+    }
+
+    /* Supprime l’espace réservé au header */
+    [data-testid="stToolbar"] {
+        display: none;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------- NOMS DES PERSONNES ----------------
 if not os.path.exists(IMAGE_FOLDER):
@@ -146,6 +165,7 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
 
