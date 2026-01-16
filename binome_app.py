@@ -14,7 +14,7 @@ ANIMATION_DELAY = 0.07
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
-    layout="wide"
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 st.markdown("""
@@ -165,6 +165,7 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
 
