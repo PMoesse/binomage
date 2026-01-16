@@ -79,7 +79,7 @@ if btn_start.button("▶️ START"):
 
         # disabled=len(st.session_state.available_images) <= 2
         # play_sound()
- 
+        placeholders = st.empty()
         # Animation dynamique
         for _ in range(ANIMATION_LOOPS):
             a, b = random.sample(st.session_state.available_images, 2)
@@ -146,5 +146,6 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
 
