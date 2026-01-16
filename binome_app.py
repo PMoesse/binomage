@@ -9,8 +9,8 @@ import base64
 IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
-ANIMATION_LOOPS = 70
-ANIMATION_DELAY = 0.01
+ANIMATION_LOOPS = 18
+ANIMATION_DELAY = 0.1
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
@@ -85,10 +85,10 @@ if btn_start.button("▶️ START"):
             cols = placeholders.columns(2)
             for i, img in enumerate([a, b]):
                 with cols[i]:
-                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
-                    #st.markdown(f"### {NAMES.get(img, img)}")
+                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)).resize((220, 300)))
+                    st.markdown(f"#### {NAMES.get(img, img)}")
             time.sleep(ANIMATION_DELAY)
- 
+
         # Sélection finale
         final_pair = random.sample(st.session_state.available_images, 2)
         st.session_state.selected_pairs.append(final_pair)
@@ -105,7 +105,7 @@ if st.session_state.current_pair:
     cols = st.columns(2)
     for i, img in enumerate(st.session_state.current_pair):
         with cols[i]:
-            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
+            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)).resize((250, 320)))
             st.markdown(f"### {NAMES.get(img, img)}")
 
 st.divider()
@@ -135,8 +135,8 @@ if st.session_state.selected_pairs:
         cols = st.columns(2)
         for i, img in enumerate(pair):
             with cols[i]:
-                st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=140)
-                # st.caption(NAMES.get(img, img))
+                st.image(Image.open(os.path.join(IMAGE_FOLDER, img)).resize((140, 140)))
+                st.caption(NAMES.get(img, img))
 
 # ---------------- RESET ----------------
 if btn_reset.button("🔄 RESET"):
@@ -144,5 +144,3 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
-
-
