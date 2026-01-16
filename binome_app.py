@@ -86,7 +86,7 @@ if btn_start.button("▶️ START"):
             for i, img in enumerate([a, b]):
                 with cols[i]:
                     st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
-                    st.markdown(f"### {NAMES.get(img, img)}")
+                    #st.markdown(f"### {NAMES.get(img, img)}")
             time.sleep(ANIMATION_DELAY)
  
         # Sélection finale
@@ -144,4 +144,5 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
