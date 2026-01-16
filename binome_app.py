@@ -10,11 +10,11 @@ IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
 ANIMATION_LOOPS = 70
-ANIMATION_DELAY = 0.01
+ANIMATION_DELAY = 0.07
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
-    layout="centered"
+    layout="wide"
 )
 
 # ---------------- NOMS DES PERSONNES ----------------
@@ -60,24 +60,26 @@ if "current_pair" not in st.session_state:
 # ---------------- UI ----------------
 st.title("🎯 Logiciel de Binômage")
 st.divider()
-btn_start, btn_reset = st.columns([3, 1])
+
+btn_start, btn_reset = st.columns([2, 1])
+
 # ---------------- START BUTTON ----------------
 if btn_start.button("▶️ START"):
+    
     # ================= FIN DES BINÔMES =================
     if len(st.session_state.available_images) < 2:
         @st.dialog("ℹ️ Information")
         def show_info():
             st.success("Tous les binômes ont été formés ✅")
             st.markdown("Cliquez sur **RESET** pour recommencer.")
-
-
+ 
         show_info()
+        
     else:
 
         # disabled=len(st.session_state.available_images) <= 2
         # play_sound()
-        placeholders = st.empty()
-
+ 
         # Animation dynamique
         for _ in range(ANIMATION_LOOPS):
             a, b = random.sample(st.session_state.available_images, 2)
@@ -86,7 +88,7 @@ if btn_start.button("▶️ START"):
             for i, img in enumerate([a, b]):
                 with cols[i]:
                     st.image(Image.open(os.path.join(IMAGE_FOLDER, img)).resize((220, 300)))
-                    st.markdown(f"#### {NAMES.get(img, img)}")
+                    #st.markdown(f"#### {NAMES.get(img, img)}")
             time.sleep(ANIMATION_DELAY)
 
         # Sélection finale
@@ -144,4 +146,5 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
 
