@@ -9,8 +9,8 @@ import base64
 IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
-ANIMATION_LOOPS = 18
-ANIMATION_DELAY = 0.1
+ANIMATION_LOOPS = 70
+ANIMATION_DELAY = 0.01
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
@@ -85,7 +85,7 @@ if btn_start.button("▶️ START"):
             cols = placeholders.columns(2)
             for i, img in enumerate([a, b]):
                 with cols[i]:
-                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=220)
+                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
                     st.markdown(f"### {NAMES.get(img, img)}")
             time.sleep(ANIMATION_DELAY)
  
@@ -144,3 +144,4 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
+
