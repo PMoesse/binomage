@@ -9,8 +9,8 @@ import base64
 IMAGE_FOLDER = "images"
 SOUND_FILE = "sounds/shuffle.wav"
 PLACEHOLDER_FOLDER = os.path.join("placeholders")
-ANIMATION_LOOPS = 70
-ANIMATION_DELAY = 0.001
+ANIMATION_LOOPS = 18
+ANIMATION_DELAY = 0.1
 
 st.set_page_config(
     page_title="Logiciel de Binômage",
@@ -22,12 +22,13 @@ if not os.path.exists(IMAGE_FOLDER):
     st.error("❌ Dossier 'images' introuvable")
     st.stop()
 
-NAMES = {
-    "p1.jpg": "Jean Dupont",
-    "p2.jpg": "Marie Kouassi",
-    "p3.jpg": "Paul Traoré",
-    "p4.jpg": "Aminata Diallo"
-}
+NAMES = {}
+for filename in os.listdir(IMAGE_FOLDER):
+    if filename.lower().endswith((".jpg", ".png")):
+        # Supprime l'extension et remplace les underscores par des espaces
+        name = os.path.splitext(filename)[0].replace("_", " ")
+        NAMES[filename] = name
+
 
 # ---------------- FUNCTIONS ----------------
 def play_sound():
@@ -44,6 +45,7 @@ def play_sound():
         )
     except FileNotFoundError:
         st.warning("🔊 Son introuvable")
+
 
 # ---------------- SESSION STATE ----------------
 if "available_images" not in st.session_state:
@@ -71,23 +73,22 @@ if btn_start.button("▶️ START"):
 
         show_info()
     else:
-        #disabled=len(st.session_state.available_images) <= 2
-        #play_sound()
-        placeholder = st.empty()
+
+        # disabled=len(st.session_state.available_images) <= 2
+        # play_sound()
+        placeholders = st.empty()
 
         # Animation dynamique
         for _ in range(ANIMATION_LOOPS):
-            imgs = random.sample(st.session_state.available_images, 2)
-
-            cols = placeholder.columns(2)
-
-            for i, img in enumerate(imgs):
+            a, b = random.sample(st.session_state.available_images, 2)
+            placeholders.empty()  # Efface l'ancien affichage
+            cols = placeholders.columns(2)
+            for i, img in enumerate([a, b]):
                 with cols[i]:
-                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=160)
-                    # st.caption(NAMES.get(img, img))
-
+                    st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=220)
+                    st.markdown(f"### {NAMES.get(img, img)}")
             time.sleep(ANIMATION_DELAY)
-
+ 
         # Sélection finale
         final_pair = random.sample(st.session_state.available_images, 2)
         st.session_state.selected_pairs.append(final_pair)
@@ -96,7 +97,7 @@ if btn_start.button("▶️ START"):
             st.session_state.available_images.remove(img)
 
         st.session_state.current_pair = final_pair
-        placeholder.empty()
+        placeholders.empty()
 
 # ---------------- FINAL DISPLAY ----------------
 if st.session_state.current_pair:
@@ -104,8 +105,8 @@ if st.session_state.current_pair:
     cols = st.columns(2)
     for i, img in enumerate(st.session_state.current_pair):
         with cols[i]:
-            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=290)
-            #st.markdown(f"### {NAMES.get(img, img)}")
+            st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=190)
+            st.markdown(f"### {NAMES.get(img, img)}")
 
 st.divider()
 
@@ -135,7 +136,7 @@ if st.session_state.selected_pairs:
         for i, img in enumerate(pair):
             with cols[i]:
                 st.image(Image.open(os.path.join(IMAGE_FOLDER, img)), width=140)
-                #st.caption(NAMES.get(img, img))
+                # st.caption(NAMES.get(img, img))
 
 # ---------------- RESET ----------------
 if btn_reset.button("🔄 RESET"):
@@ -143,10 +144,3 @@ if btn_reset.button("🔄 RESET"):
     st.session_state.selected_pairs = []
     st.session_state.current_pair = None
     st.rerun()
-
-
-
-
-
-
-
